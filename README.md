@@ -53,7 +53,7 @@ By working with a structured unicorn database, the analysis focused on three cri
 
 ## TOOLS AND SKILLS USED
 
-* SQL (PostgreSQL)
+* [SQL (PostgreSQL)](https://www.postgresql.org/download/)
 * Concepts: CTEs (Common Table Expressions), `JOIN`, Aggregations, Grouping, Filtering with `WHERE` and `EXTRACT`, Ordering, Subqueries.
 * Techniques Used: Data exploration, industry benchmarking, trend analysis, valuation averaging, filtering by year, and summarizing performance.
 <br>
@@ -235,5 +235,11 @@ By testing each CTE and combining them carefully, we were able to get trustworth
 ## FINAL NOTES
 
 This project demonstrated how SQL can uncover meaningful business insights from structured data. By narrowing analysis to the top three industries, we provided the investment firm with a clear, evidence-backed picture of where the unicorn ecosystem is thriving. These findings help guide **smarter portfolio strategies, ensuring decisions are based on industry performance trends rather than speculation**. Future extensions of this analysis could include geographical comparisons or investor-specific performance to give an even more targeted investment strategy.
+<br>
+<br>
+## REFERENCES
+
+* [DataCamp](https://app.datacamp.com/)
+* [What Is the Average Stock Market Return?](https://www.nerdwallet.com/article/investing/average-stock-market-return)
 <br>
 <br>
