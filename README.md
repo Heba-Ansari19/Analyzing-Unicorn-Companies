@@ -6,6 +6,8 @@ This project analyzes unicorn companies to help an investment firm identify the 
 
 Unicorn companies are private startups valued at over $1 billion, and tracking their growth can reveal where the next wave of innovation and opportunity lies. In this project, we were tasked with supporting an investment firm by analyzing unicorn data across industries and years. The firm wanted to understand **which industries are producing the most unicorns and how their valuations have evolved between 2019 and 2021.**
 
+<img width="1400" height="931" alt="image" src="https://github.com/user-attachments/assets/521d3598-ef3c-4ec7-bb4b-f938911b52bd" />
+
 By working with a structured unicorn database, the analysis focused on three critical areas: identifying the most promising industries, understanding how many new unicorns each industry produced during the selected years, and evaluating their average valuations in billions of dollars. These insights provide competitive intelligence for the firm, helping it recognize where to direct its future investment portfolio.
 <br>
 <br>
@@ -69,6 +71,7 @@ SELECT *
 FROM dates
 LIMIT 5;
 ```
+
 <img width="800" alt="image" src="https://github.com/user-attachments/assets/7195fdcc-6ee2-4550-85b8-e83a1c64d8f7" />
 
 ```sql
@@ -79,6 +82,7 @@ SELECT *
 FROM funding
 LIMIT 5;
 ```
+
 <img width="800" alt="image" src="https://github.com/user-attachments/assets/272a6535-060f-48a1-96a7-fd96432e14a9" />
 
 ```sql
@@ -89,6 +93,7 @@ SELECT *
 FROM industries
 LIMIT 5;
 ```
+
 <img width="800" alt="image" src="https://github.com/user-attachments/assets/dddb462a-a2a4-423a-bb83-f62509750b83" />
 
 ```sql
@@ -99,9 +104,11 @@ SELECT *
 FROM companies
 LIMIT 5;
 ```
+
 <img width="800" alt="image" src="https://github.com/user-attachments/assets/0df32bbd-6ed1-4bb5-a198-da1d1a40547b" />
 
 Before starting the main analysis, we explored the tables to understand their structure and the kind of information they contained. Checking a few rows from each table helps ensure the **data is clean, consistent, and ready for aggregation and joins**. Exploring the first few rows allowed us to confirm that each table contained the expected information and that the data types were compatible for joins and calculations. For example, we verified that `date_joined` could be extracted by year, valuation was numeric, and `company_id` was consistent across tables for proper joins.
+
 
 ### 2. Checking Columns and Data Types
 ```sql
@@ -111,8 +118,11 @@ FROM information_schema.columns
 WHERE table_name IN ('dates', 'funding', 'industries', 'companies')
 ORDER BY table_name, ordinal_position;
 ```
+
 Using the `information_schema.columns` query, we confirmed the column names, data types, and table structures. This query lists all columns and their data types for the four main tables. **Knowing the data types is critical** — for example, confirming that valuation is numeric allows us to calculate averages and convert to billions without errors. Checking the `date_joined` column type ensures we can extract the year correctly for time-based analysis. Additionally, seeing all columns in one place helps us decide which columns to include in joins, CTEs, and aggregations, streamlining the workflow and ensuring that every query aligns with the table structure.
+
 <img width="800" alt="image" src="https://github.com/user-attachments/assets/26801d77-05e5-4b7a-88be-aad0d196f320" />
+
 
 ### 3. Identifying Top-Performing Industries (CTE1)
 ```sql
@@ -128,8 +138,11 @@ GROUP BY i.industry
 ORDER BY number_of_companies DESC
 LIMIT 3;
 ```
+
 This step helped us find the **industries with the most unicorns created between 2019 and 2021**. We tested this CTE first to make sure the counts were correct and it was identifying the top industries properly. By grouping and counting companies by industry, we focused only on the **strongest performers**. This was important because it let us ignore industries with very few unicorns and concentrate on the ones that really drive growth. Testing the CTE also helped confirm that the data matched correctly across tables.
+
 <img width="800" alt="image" src="https://github.com/user-attachments/assets/53068580-166a-4e82-adac-5a09939a4508" />
+
 
 ### 4. Calculating Yearly Valuations and Unicorn Counts (CTE2)
 ```sql
@@ -148,7 +161,9 @@ WHERE EXTRACT(YEAR FROM d.date_joined) IN (2019, 2020, 2021)
 GROUP BY i.industry, year
 ORDER BY year ASC;
 ```
+
 Next, we created the second CTE to look at these **top industries year by year**, showing not just total unicorns but also how their numbers and valuations changed each year. We tested this CTE separately, too, to ensure the counts and average valuations made sense. Calculating averages helped us understand financial health, while counting unicorns showed growth trends. This step was key because it let us see **which industries were growing faster or slower over time.**
+
 <img width="800" alt="image" src="https://github.com/user-attachments/assets/6b2d9a86-ba42-4587-b123-0b8bd0f644a6" />
 
 
@@ -208,12 +223,17 @@ WHERE year IN (2019, 2020, 2021)
 GROUP BY industry, year, num_unicorns
 ORDER BY year DESC, num_unicorns DESC;
 ```
+
 Finally, the combined query brought both CTEs together, keeping only the **top industries and showing their yearly unicorn counts and average valuations**. Converting valuations into billions made it easier to read. This gave us both scale (number of unicorns) and value (average valuation) — the two main things investors care about. Testing the final query confirmed that everything joined correctly and the numbers were reliable.
 
 By testing each CTE and combining them carefully, we were able to get trustworthy insights about the top industries, how they grew over time, and their financial impact, which helps make smarter investment decisions.
+
 <img width="800" alt="image" src="https://github.com/user-attachments/assets/0fc2870b-cb34-435f-97f9-96530bf7d71e" />
+
 <br>
 <br>
+
+
 ## INSIGHTS AND FINDINGS
 
 * **Fintech** led in overall unicorn creation, showing **rapid growth**, especially in **2021**.
